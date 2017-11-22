@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/wechat.css" />
+		<link rel="stylesheet" type="text/css" href="myicons2/iconfont.css" />
+		<script src="myicons2/iconfont.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js"></script>
+		<style type="text/css">
+			.icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: -0.15em;
+				fill: currentColor;
+				overflow: hidden;
+			}
+			
+			.mui-font {
+				font-size: 17px;
+			}
+			
+			.mui-table-view-cell {
+				padding: 7px 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media" id="li2">
+					<a href="javascript:;">
+						<span class="mui-media-object mui-pull-left">
+							<svg class="icon" aria-hidden="true" >
+								<use xlink:href="#icon-friends"></use>
+							</svg>
+						</span>
+
+						<div class="mui-media-body mui-font">
+							朋友圈
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div style="height: 16px;"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media" id="li4">
+					<a href="javascript:;">
+						<span class="mui-icon iconfont icon-saoyisao mui-media-object mui-pull-left" style="color: #008AFF;"></span>
+						<!--<img class="mui-media-object mui-pull-left" src="image/2.png">-->
+						<div class="mui-media-body mui-font">
+							扫一扫
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media" id="li3">
+					<a href="javascript:;">
+						<span class="mui-icon iconfont icon-yaoyiyao mui-media-object mui-pull-left" style="color: #008AFF;"></span>
+						<!--<img class="mui-media-object mui-pull-left" src="image/3.png">-->
+						<div class="mui-media-body mui-font">
+							摇一摇
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div style="height: 16px;"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<span class="mui-media-object mui-pull-left">
+							<span class="mui-icon iconfont icon-fujinderen " style="color: #008AFF;"></span>
+						</span>
+						<!--<img class="mui-media-object mui-pull-left" src="image/朋友圈.png">-->
+						<div class="mui-media-body mui-font">
+							附近的人
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div style="height: 16px;"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<span class="mui-icon iconfont icon-gouwu mui-media-object mui-pull-left" style="color: #FF0000;"></span>
+						<div class="mui-media-body mui-font">
+							购物
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<svg class="icon  mui-media-object mui-pull-left" aria-hidden="true">
+							<use xlink:href="#icon-youxi"></use>
+						</svg>
+						<div class="mui-media-body mui-font">
+							游戏
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div style="height: 16px;"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<span class="mui-media-object mui-pull-left">
+							<span class="mui-icon iconfont icon-xiaochengxu" style="color: #008AFF;"></span>
+						</span>
+						<div class="mui-media-body mui-font">
+							小程序
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			mui.init()
+			//朋友圈
+			mui(".mui-table-view").on("tap", "#li2", function() {
+				mui.openWindow({
+					url: "findCell/pyq_header.html",
+					id: "findCell/pyq_header.html"
+
+				})
+			});
+			//摇一摇
+			mui(".mui-table-view").on("tap", "#li3", function() {
+				mui.openWindow({
+					url: "findCell/shack.html",
+					id: "findCell/shack.html"
+
+				})
+			});
+			//扫一扫
+			mui(".mui-table-view").on("tap", "#li4", function() {
+				mui.openWindow({
+					url: "findCell/weep.html",
+					id: "findCell/weep.html"
+
+				})
+			});
+		</script>
+	</body>
+
+</html>

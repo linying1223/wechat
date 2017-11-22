@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/wechat.css" />
+
+		<link rel="stylesheet" type="text/css" href="mypics/iconfont.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="mypics/iconfont.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: -0.15em;
+				fill: currentColor;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--头部-->
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">微信</h1>
+			<div class="mui-ti-right">
+				<span class="mui-icon mui-icon-search" id="mui-sp"></span>
+				<span class="mui-icon mui-icon-plusempty"></span>
+			</div>
+		</header>
+		<!--中部-->
+
+		<!--尾部-->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="wechat2.html">
+				<span class="mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">微信</span>
+			</a>
+			<!--自定义图标-->
+			<a class="mui-tab-item" href="phone.html">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#icon-tongxunlu"></use>
+					</svg>
+				</span>
+				<span class="mui-tab-label">通讯录</span>
+			</a>
+
+			<a class="mui-tab-item" href="find.html">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#icon-zhinanzhen1"></use>
+					</svg>
+				</span>
+				<span class="mui-tab-label">发现</span>
+			</a>
+
+			<a class="mui-tab-item" href="me.html">
+				<span class="mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">我</span>
+			</a>
+		</nav>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			//判断是否从登录页面过来的
+			//			var url2 = window.location.search.substr(1);
+			//			alert(url2)
+			//			if(url2==""){
+			//				alert(url2)
+			//				mui.openWindow({
+			//					url: "login.html",
+			//					id: "login.html"
+			//
+			//				})
+			//				window.location.href = "index.html"
+			//			}
+			//1.创建子窗口数组
+			var pages = ["wechat2.html", "phone.html", "find.html", "me.html"];
+			//2.创建子窗口样式
+			var subStyle = {
+				top: '45px',
+				bottom: '50px'
+			};
+			//创建窗体对象，把子窗口依次放入
+			mui.plusReady(function() {
+				//1.获取到当前显示窗口
+				var obj = plus.webview.currentWebview();
+				if(obj.titles !== "login") {
+					window.location.href = "login.html"
+					return;
+				} else {
+					//2.把数组窗口依次放入当前窗口
+					for(var i = 0; i < pages.length; i++) {
+						//创建多个窗口
+						var sub = plus.webview.create(pages[i], pages[i], subStyle);
+						sub.hide(); //隐藏窗口
+						//加入到当前窗口，成为子窗口
+						obj.append(sub);
+					}
+					plus.webview.show(pages[0]);
+				}
+
+			});
+
+			//触屏切换页面
+			mui(".mui-bar-tab").on("tap", "a", function() {
+				var targets = this.getAttribute("href");
+				plus.webview.show(targets);
+			});
+		</script>
+	</body>
+
+</html>

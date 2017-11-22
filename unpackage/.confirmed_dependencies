@@ -1,0 +1,46 @@
+{
+	"index.html": {
+		"resources": [
+			"wechat.html",
+			"find.html",
+			"phone.html",
+			"wechat2.html"
+		],
+		"refer": [
+			"phone.html",
+			"find.html",
+			"me.html",
+			"wechat.html",
+			"wechat2.html"
+		]
+	},
+	"wechat.html": {
+		"refer": [
+			"wechat1.html"
+		]
+	},
+	"wechat1.html": {
+		"refer": [
+			"wechat1.html"
+		]
+	},
+	"find.html": {
+		"refer": [
+			"findCell/shack.html",
+			"findCell/pyq_header.html"
+		]
+	},
+	"findCell/pyq_header.html": {
+		"resources": [
+			"findCell/pyq_footer.html"
+		],
+		"refer": [
+			"findCell/pyq_footer.html"
+		]
+	},
+	"wechat2.html": {
+		"refer": [
+			"wechat1.html"
+		]
+	}
+}

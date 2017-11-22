@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/wechat.css" />
+		<script src="js/mui.min.js"></script>
+	</head>
+	<style type="text/css">
+		.mui-input-group:before {
+			background-color: white;
+		}
+		
+		.mui-input-group:after {
+			background-color: white;
+		}
+	</style>
+
+	<body>
+		<div id="loginContent">
+			<div class="lo_top">
+				<span class="sp3" style="font-size: 22px;">X</span>
+
+				<img src="image/three.png" class="sp4" />
+				<!--<span class="mui-icon mui-icon-arrowup"></span>-->
+			</div>
+			<h3 class="h3">微信号/QQ/邮箱登录</h3>
+			<form class="mui-input-group" method="get">
+				<div class="mui-input-row">
+					<label>帐号</label>
+					<input type="text" class="mui-input-clear" placeholder="请填写微信号/QQ号/邮箱">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input type="password" class="mui-input-password" placeholder="请输入密码">
+				</div>
+				<div class="lo_phone">
+					<a href="#">用手机号登录</a>
+				</div>
+
+				<div class="lo_btn">
+					<input type="submit" class="sub_btn" value="登录" onclick="test()">
+				</div>
+			</form>
+		</div>
+
+		<script type="text/javascript">
+			mui.init();
+			function test() {
+				var user = document.querySelector(".mui-input-clear");
+				var pwd = document.querySelector(".mui-input-password");
+				var bool = false;
+				if(user.value == "") {
+					alert("用户名不能为空！");
+				} else if(pwd.value == "") {
+					alert("密码不能为空！");
+				} else {
+					mui.get("login.json", {
+						'user': user.value,
+						'password': pwd.value
+					}, function(data) {
+						for(var i = 0; i < data.users.length; i++) {
+
+							if(data.users[i].name == user.value && data.users[i].password == pwd.value) {
+								bool = true;
+							}
+						}
+						if(bool == true) {
+							mui.openWindow({
+								url: "index.html",
+								id: "index.html",
+								extras: {
+									titles: "login"
+								}
+							})
+							alert("登录成功")
+						} else {
+							alert("用户名或密码错误！")
+						}
+
+					}, 'json');
+				}
+			}
+		</script>
+	</body>
+
+</html>

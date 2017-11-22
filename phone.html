@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/wechat.css" />
+		<link rel="stylesheet" type="text/css" href="myicons2/iconfont.css" />
+		<script src="myicons2/iconfont.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js"></script>
+		<style type="text/css">
+			.icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: -0.15em;
+				fill: currentColor;
+				overflow: hidden;
+			}
+			
+			.mui-font {
+				font-size: 17px;
+			}
+			
+			.picColor {
+				font-size: 36px;
+			}
+			
+			.mui-table-view-cell {
+				padding: 7px 15px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content phone-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<!--这里放置真实显示的DOM内容-->
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<span class="mui-media-object mui-pull-left">
+							<svg class="icon picColor" aria-hidden="true" style="color: orange;">
+								<use xlink:href="#icon-xindepengyou"></use>
+							</svg>
+						</span>
+
+								<div class="mui-media-body mui-font">
+									新的朋友
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<span class="mui-media-object mui-pull-left">
+							<svg class="icon picColor" aria-hidden="true" style="color: green;">
+								<use xlink:href="#icon-qunliao1"></use>
+							</svg>
+						</span>
+								<div class="mui-media-body mui-font">
+									群聊
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<span class="mui-media-object mui-pull-left">
+							<svg class="icon picColor" aria-hidden="true" >
+								<use xlink:href="#icon-biaoqian"></use>
+							</svg>
+						</span>
+								<div class="mui-media-body mui-font">
+									标签
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<span class="mui-media-object mui-pull-left">
+							<span class="mui-icon iconfont icon-xindepengyou picColor" style="color: #008AFF;"></span>
+								</span>
+								<div class="mui-media-body mui-font">
+									公众号
+								</div>
+							</a>
+						</li>
+					</ul>
+					<div style="height: 16px;"></div>
+
+					<ul class="mui-table-view" id="contacts1">
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="image/1.png">
+								<div class="mui-media-body">
+									幸福
+
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="image/2.png">
+								<div class="mui-media-body">
+									木屋
+
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="image/3.png">
+								<div class="mui-media-body">
+									CBD
+
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			//初始化scroll控件
+			mui(".mui-scroll-wrapper").scroll({
+				scrollY: true, //是否竖向滚动
+				 indicators: false, //是否显示滚动条
+			});
+			// 监听plusready事件  
+			document.addEventListener("plusready", function() {
+
+				// 扩展API加载完毕，现在可以正常调用扩展API
+				plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function(addressbook) {
+					// 可通过addressbook进行通讯录操作
+
+					addressbook.find(["displayName", "phoneNumbers"], function(contacts) {
+						var contacts1 = document.getElementById("contacts1");
+						for(var i = 0; i < contacts.length; i++) {
+
+							if(i < 8) {
+								contacts1.innerHTML += "<li class='mui-table-view-cell mui-media'>" +
+									"<a href='javascript:;'>" +
+									"<img class='mui-media-object mui-pull-left' src='image/1.png'>" +
+									"<div class='mui-media-body'>" +
+									contacts[i].displayName +
+									"</div>" +
+									"</a>" +
+									"</li>";
+							}
+
+						}
+					})
+
+				}, function(e) {
+					alert("Get address book failed: " + e.message);
+				});
+			}, false);
+		</script>
+	</body>
+
+</html>

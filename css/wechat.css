@@ -1,0 +1,201 @@
+*{
+	box-sizing: border-box;
+}
+body{
+	font-size: 18px;
+}
+P{
+	font-size: 16px;
+}
+.li1{
+	line-height: 28px;
+	padding: 21px 15px;
+}
+.mui-title{
+	color: white;
+	text-align: left;
+}
+.mui-ti-right{
+	float: right;
+	color: white;
+}
+#mui-sp{
+	display: inline-block;
+	margin-right: 15px;
+}
+.mui-bar-nav{
+	background: rgba(0,0,0,0.7);
+}
+.mui-active .mui-icon,.mui-active .mui-tab-label{
+	color: green;	
+}
+/*聊天室中的底部*/
+.mui-bottom1{
+	padding-top: 5px;
+	
+}
+.mui-bottom1 .inpu{
+	width: 60%;
+	height: 36px;
+	margin-bottom: 0px;
+}
+.mui-bottom1 .sp1{
+	padding: 6px 12px 7px;
+}
+.mui-bottom1 .sp2{
+	border:1px solid #ACACB4;
+	border-radius: 50%;
+	height: 26px;
+	
+}
+
+/*.btn2{
+	display: none;
+}*/
+.mui-bar .sp2{
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.mui-bar .mui-btn{
+	top: 3px;
+}
+.btn1{
+	display: inline-block;
+	float: left;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+
+.bigDiv{
+	height: 60px;
+	line-height: 60px;
+	clear: both;
+}
+.mesLeft{
+	float: left;
+	margin-right: 15px;
+	
+}
+.mesRight{
+	float: left;
+	line-height: 40px;
+	/*min-width: 3%;*/
+	max-width: 80%;
+	min-height: 40px;
+	border: 1px solid lavender;
+	background: lightgreen;
+	padding: 3px;
+	word-wrap:break-word;
+	
+}
+.mesLeftba{
+	float: right;
+	margin-left:15px;
+}
+.mesRightba{
+	float:right;
+	line-height: 40px;
+	/*min-width: 3%;*/
+	max-width: 80%;
+	min-height: 40px;
+	border: 1px solid lavender;
+	background: lightgreen;
+	padding: 3px;
+	word-wrap:break-word;
+}
+.sps3{
+	display: inline-block;
+	border: 1px solid #ACACB4;
+	width: 225px;
+	height: 36px;
+	text-align: center;
+	color: #666666;
+	line-height: 30px;
+	display: none;
+}
+
+/*发现*/
+.mui-media-body{
+	margin-top: 9px;
+}
+.pyq_header{
+	background: black;
+}
+/*摇一摇*/
+.yycontent{
+	min-height: 628px;
+}
+.mui-content .pic1{
+	padding-top: 100px;
+}
+.mui-content .pic2{
+	padding-bottom: 100px;
+}
+.mui-content .pic1 img{
+	vertical-align: bottom;
+}
+.div1{
+	height: 60px;
+	color: white;
+	line-height: 60px;
+	text-align: center;
+	font-size: 22px;
+	display: none;
+}
+.yyBottom{
+	height: 50px;
+	line-height: 50px;
+	color: white;
+}
+/*我*/
+.meTitle{
+	margin-top: 2px;
+}
+.meli1{
+	padding: 15px 15px !important;
+}
+
+/*登录*/
+#loginContent{
+	width: 100%;
+	min-height: 650px;
+	background: white;
+}
+.lo_top{
+	width: 100%;
+	height: 40px;
+	padding-top: 9px;
+	margin-bottom: 26px;
+}
+.sp3{
+	margin-left: 15px;
+}
+.sp4{
+	float: right;
+	margin-top: -4px;
+}
+.h3{
+	padding-left: 12px;
+	height: 55px;
+	
+}
+.lo_phone{
+	font-size: 16px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding-left: 12px;
+}
+.mui-input-group .sub_btn{
+	width: 100%;
+	height: 40px;
+	font-size: 17px;
+	border:1px solid #007aff;
+	background: #007aff;
+	color: #FFFFFF;
+	border-radius: 3px;
+}
+/*.lo_btn input{
+	width: 100%;
+	height: 40px;
+	font-size: 17px;
+}*/

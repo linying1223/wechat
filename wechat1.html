@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/wechat.css" />
+		<script src="js/mui.min.js"></script>
+	</head>
+		<style type="text/css">
+			.mui-scroll-wrapper{
+				padding-bottom: 50px;
+				margin-top: 45px;
+			}
+		</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="mui-Title"></h1>
+		</header>
+		<div class="mui-content">
+			<!--<img id="pic1" width="40px" />-->
+			<div class="mui-scroll-wrapper">
+			    <div class="mui-scroll">
+			        <!--这里放置真实显示的DOM内容-->
+			    </div>
+			</div>
+			
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<div class="mui-bottom1">
+				<span class="mui-icon mui-icon-mic sp1" id="recordSom"></span>
+				<input type="text" placeholder="请输入信息" class="inpu" id="inpu2" onkeyup="sendMe()" />
+				<span class="sps3" id="Sps3">按住说话</span>
+				<button type="button" class="mui-btn mui-btn-green btn2" style="display: none;">发送</button>
+
+				<font class="sp1" id="font1"><span class="mui-icon mui-icon-plusempty sp2"></span></font>
+			</div>
+
+			<ul class="mui-table-view mui-grid-view mui-grid-9" id="ul1" style="display: none;">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" id="li1">
+					<a href="#">
+						<span class="mui-icon mui-icon-image"></span>
+						<div class="mui-media-body">相册</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" id="camera2">
+					<a href="#">
+						<span class="mui-icon mui-icon-camera"></span>
+						<div class="mui-media-body">拍摄</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon mui-icon-chatbubble"></span>
+						<div class="mui-media-body">Chat</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon mui-icon-location"></span>
+						<div class="mui-media-body">Location</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon mui-icon-search"></span>
+						<div class="mui-media-body">Search</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon mui-icon-phone"></span>
+						<div class="mui-media-body">Phone</div>
+					</a>
+				</li>
+			</ul>
+
+		</nav>
+		<script type="text/javascript">
+			mui.init({
+				gestureConfig: {
+					tap: true,
+					doubletap: true, //默认为false
+					longtap: true, //默认为false
+					swipe: true, //默认为true
+					drag: true, //默认为true
+					hold: true, //默认为false，不监听
+					release: true //默认为false，不监听
+				}
+			})
+			
+			//初始化scroll控件
+			mui(".mui-scroll-wrapper").scroll({
+				scrollY: true, //是否竖向滚动
+				 indicators: false, //是否显示滚动条
+			});
+			var messages = '';
+
+			showAdd();
+
+			//语音
+			document.addEventListener("plusready", onPlusReady, false);
+			var r = null;
+			// 扩展API加载完毕，现在可以正常调用扩展API 
+			function onPlusReady() {
+				var subview = plus.webview.currentWebview();
+				var title = subview.title;
+				var srcs = subview.srcs;
+
+				messages = srcs;
+				document.getElementById("mui-Title").innerHTML = title;
+				r = plus.audio.getRecorder();
+			}
+			//点击语音按钮
+			mui(".mui-bottom1").on("tap", "#recordSom", function() {
+
+				var inpu2 = document.getElementById("inpu2");
+				var Sps3 = document.getElementById("Sps3");
+
+				if(inpu2.style.display == "none") {
+					inpu2.style.display = "inline-block";
+					Sps3.style.display = "none"
+				} else {
+					inpu2.style.display = "none";
+					Sps3.style.display = "inline-block"
+				}
+
+			});
+			var url = "";
+//			var toUrl = [];
+			mui(".mui-bottom1").on("hold", "#Sps3", function() {
+				this.style.color = "red";
+				if(r == null) {
+					return;
+				}
+				r.record({
+					filename: "_doc/audio"
+				}, function(path) {
+					//获取的是相对路径
+					url = "file://" + plus.io.convertLocalFileSystemURL(path);
+					var muiContent = document.getElementsByClassName("mui-scroll")[0];
+					muiContent.innerHTML += "<div class='bigDiv'><div class='mesLeft'><img width='40px' src='" + messages + "'/></div>" +
+						"<div class='mesRight melanguage'>语言...</div>";
+
+//					toUrl.push(url);
+				}, function(err) {
+					console.log(err)
+				})
+			});
+			//录音结束
+			mui(".mui-bottom1").on("release", "#Sps3", function() {
+				this.style.color = "black";
+				r.stop();
+			})
+
+			//播放音频
+			mui(".mui-content").on("tap", ".melanguage", function() {
+//				var index = this.index;
+//				for(var i = 0; i < toUrl.length; i++) {
+//					if(i == index) {
+//						var p = plus.audio.createPlayer(toUrl[i]);
+//						p.play(function() {
+//							p.pause();
+//							alert("Audio play success!");
+//						}, function(e) {
+//							alert("Audio play failed: " + e.message);
+//						});
+//					}
+//				}
+				var p = plus.audio.createPlayer(url)
+				//				var num = p.getDuration(); //获取音频总长度number 
+				//				setTimeout(function() { //延时获取，否则可能没有返回长度 
+				//					var num = p.getDuration();
+				//					alert(num)
+				//				}, 100)
+				p.play(function() {
+					p.pause();
+//					alert("Audio play success!");
+				}, function(e) {
+					alert("Audio play failed: " + e.message);
+				});
+			});
+			//input中若没有信息则显示＋
+			function showAdd() {
+				var input2 = document.getElementById("inpu2").value;
+				var btn2 = document.getElementsByClassName("btn2")[0];
+				var font1 = document.getElementById("font1");
+
+				if(input2 == "") {
+					font1.style.display = "inline";
+					btn2.style.display = "none";
+				} else {
+					font1.style.display = "none";
+					btn2.style.display = "inline";
+				}
+			}
+			var input1 = document.getElementById("inpu2");
+
+			function sendMe() {
+				showAdd();
+			}
+			mui(".mui-bottom1").on("tap", "#inpu2", function() {
+				var ul = document.getElementById("ul1");
+				ul.style.display = "none"
+			});
+			//点击发送
+			mui(".mui-bottom1").on("tap", "button", function() {
+				var val2 = document.getElementById("inpu2").value;
+				var muiContent = document.getElementsByClassName("mui-scroll")[0];
+				var div = document.createElement("div");
+				div.className = "bigDiv";
+				div.innerHTML = "<div class='mesLeft'><img width='40px' src='" + messages + "'/></div>" +
+					"<div class='mesRight'>" + val2 + "</div>";
+				//				input1 = ' ';
+				muiContent.appendChild(div);
+				document.getElementById("inpu2").value = "";
+				//自动回复
+				setTimeout(autoBack, 1000);
+				showAdd();
+			});
+			//自动回复
+			function autoBack() {
+				var muiContent = document.getElementsByClassName("mui-scroll")[0];
+
+				var div2 = document.createElement("div");
+				div2.className = "bigDiv";
+				div2.innerHTML = "<div class='mesLeftba'><img width='40px' src='image/2.png'/></div>" +
+					"<div class='mesRightba'>你好！</div>";
+
+				muiContent.appendChild(div2);
+			}
+
+			//点击加号出现更多的应用
+			mui(".mui-bottom1").on("tap", "#font1", function() {
+				var inpu2 = document.getElementById("inpu2");
+				var ul = document.getElementById("ul1");
+				ul.style.display = "block"
+				inpu2.blur();
+			});
+
+			//点击相册调用相册
+			var li1 = document.getElementById("li1");
+			li1.addEventListener("tap", function() {
+				var muiContent = document.getElementsByClassName("mui-scroll")[0];
+				plus.gallery.pick(function(path) {
+
+					//					alert(path);
+					//单选一张图片
+					//					pics.innerHTML ="<img src="+path+" width='100px'/>";
+					//多选图片
+					for(var i in path.files) {
+						//						muiContent.innerHTML +="<img src="+path.files[i]+" width='100px'/>";
+						muiContent.innerHTML += "<div class='bigDiv'><div class='mesLeft'><img width='40px' src='" + messages + "'/></div>" +
+							"<div class='mesRight'><img width='40px' src='" + path.files[i] + "'/></div></div>";
+					}
+				}, function(err) {
+					console.log(err);
+				}, {
+					filter: "image",
+					multiple: true
+				});
+			})
+
+			//拍摄
+			//摄像头
+			var camera1 = document.getElementById("camera2");
+			camera1.addEventListener("tap", function() {
+				var muiContent = document.getElementsByClassName("mui-scroll")[0];
+				var cm = plus.camera.getCamera(1);
+
+				cm.captureImage(function(path) {
+					//获取的是相对路径
+					var url = "file://" + plus.io.convertLocalFileSystemURL(path)
+					muiContent.innerHTML += "<div class='bigDiv'><div class='mesLeft'><img width='40px' src='" + messages + "'/></div>" +
+						"<div class='mesRight'><img width='40px' src='" + url + "'/></div></div>";
+				})
+			})
+		</script>
+	</body>
+
+</html>

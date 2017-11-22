@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/wechat.css" />
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">摇一摇</h1>
+		</header>
+		<div class="mui-content yycontent" style="background: #2D3130;">
+			<div class="pic1"><img src="../image/123_01.png" width="100%"></div>
+			<div class="div1" id="findFri">正在查找朋友。。。</div>
+			<div class="pic2"><img src="../image/123_02.png" width="100%"></div>
+			<div class="yyBottom"></div>
+			<div id="yyContent"></div>
+			
+		</div>
+
+		<script type="text/javascript">
+			mui.init();
+			//重力感应
+			//x,y,z的绝对值等于10，x y z的绝对值大于20  说明有外力
+			var wid = null;
+			document.addEventListener("plusready", function() {
+				shakeFun();
+				}, false);
+			
+
+			function cancel() {
+				plus.accelerometer.clearWatch(wid);
+				wid = null;
+			}
+			function shakeFun(){
+				wid = plus.accelerometer.watchAcceleration(function(a) {
+					var shakeX = Math.abs(a.xAxis);
+					var shakeY = Math.abs(a.yAxis);
+					var shakeZ = Math.abs(a.zAxis);
+
+					var findFri = document.getElementById("findFri");
+					var yyBottom = document.getElementsByClassName("yyBottom")[0];
+					var yyContent = document.getElementById("yyContent");
+					if((shakeX + shakeY + shakeZ) >= 20) {
+						findFri.style.display = "block";
+						
+						yyContent.innerHTML += "<audio autoplay='autoplay'>" +
+							"<source src='../image/sound/shake_sound.mp3'>" +
+							"</audio>";
+						
+						cancel();
+						setTimeout(function() {
+							findFri.style.display = "none";
+							yyBottom.innerHTML = "你找到一位好友：丽丽";
+							yyContent.innerHTML += "<audio  autoplay='autoplay'>" +
+							"<source src='../image/sound/shake_match.mp3'>" +
+							"</audio>";
+							shakeFun();
+						}, 4000)
+					} 
+				},function(e){
+					alert(e)
+				}); //,{frequency:5000} // 设置更新间隔时间为1s
+			}
+		</script>
+	</body>
+
+</html>
